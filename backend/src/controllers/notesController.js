@@ -1,19 +1,29 @@
-const {
-  getBcryptedPassword,
-  comparePassword,
-} = require("../utils/bcryptPassword");
-const ifUserExists = require("../services/isUserExist");
 const userSchema = require("../models/user");
 const noteSchema = require("../models/notes");
 
 class NotesController {
+  static getNotes = async (req, res) => {
+    const { userID } = req.body;
+    try {
+      const getUser = await userSchema.findById(userID);
+      if (!getUser) {
+        res.send({ success: false, message: "User not found!" });
+      }
+      const getNotes = await noteSchema.find({ userID: userID });
+      res.send({ success: true, data: getNotes });
+    } catch (error) {
+      res.send({ success: false, message: "Something went wrong!" });
+    }
+  };
+
   static addNote = async (req, res) => {
     const { userID, title, content } = req.body;
     try {
-      if (!userID) {
-        res.send("Login to continue");
+      const getUser = await userSchema.findById(userID);
+      if (!getUser) {
+        res.send({ success: false, message: "User not found!" });
       }
-      const note = noteSchema({
+      const note = new noteSchema({
         userID,
         title,
         content,
@@ -27,16 +37,18 @@ class NotesController {
       });
     } catch (error) {
       console.error("Error While adding note ==> ", error);
-      return res.send
+      return res
+        .send()
         .status(500)
         .send({ success: false, message: error.message });
     }
   };
 
   static editNote = async (req, res) => {
-    const { noteID, title, content } = req.body;
+    const noteID = req.params.id;
+    const { title, content } = req.body;
     try {
-      const updateNote = noteSchema.findByIdAndUpdate(
+      const updateNote = await noteSchema.findByIdAndUpdate(
         noteID,
         {
           title,
@@ -45,38 +57,38 @@ class NotesController {
         { new: true }
       );
       if (!updateNote) {
-        return res.send("Note not found!");
+        return res.send({ success: false, message: "Note not found!" });
       }
 
-    
       return res.send({
         success: true,
         message: "note updated Successfully ",
       });
     } catch (error) {
       console.error("Error While updating note ==> ", error);
-      return res.send
+      return res
+        .send()
         .status(500)
         .send({ success: false, message: error.message });
     }
   };
 
   static deleteNote = async (req, res) => {
-    const { noteID } = req.body;
+    const  noteID  = req.params.id;
     try {
-      const removeNote = noteSchema.findByIdAndDelete(noteID);
+      const removeNote = await noteSchema.findByIdAndDelete(noteID);
       if (!removeNote) {
-        return res.send("Note not found!");
+        return res.send({ success: false, message: "Note not found!" });
       }
 
-    
       return res.send({
         success: true,
         message: "note deleted Successfully ",
       });
     } catch (error) {
       console.error("Error While deleting note ==> ", error);
-      return res.send
+      return res
+        .send()
         .status(500)
         .send({ success: false, message: error.message });
     }

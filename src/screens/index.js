@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addNote, fetchNotes } from "./store/reducers/noteSlice";
+import { fetchNotes } from "./store/reducers/noteSlice";
 import { postWithoutToken } from "./services/post";
 import { paths } from "./config/paths";
 import { putWithoutToken } from "./services/put";
 import { deleteWithoutToken } from "./services/delete";
+import { logout } from "./store/reducers/authReducer";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -84,53 +85,74 @@ const Main = () => {
   };
 
   return (
-    <div className="app-container">
-      <form
-        onSubmit={(event) =>
-          selectedNote ? handleUpdateNote(event) : handleAddNote(event)
-        }
-        className="note-form"
-      >
-        <input
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          placeholder="Title"
-          required
-        />
-        <textarea
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          placeholder="Content"
-          rows={10}
-          required
-        />
-        {selectedNote ? (
-          <div className="edit-buttons">
-            <button type="submit">Save</button>
-            <button onClick={handleCancel}>Cancel</button>
-          </div>
-        ) : (
-          <button type="submit">Add Note</button>
-        )}
-      </form>
-
-      <div className="notes-grid">
-        {notes.map((note) => (
-          <div
-            key={note._id}
-            onClick={() => selected(note)}
-            className="note-item"
-          >
-            <div className="notes-header">
-              <button onClick={(event) => deleteNote(event, note._id)}>
-                x
-              </button>
-            </div>
-            <h2 style={{ textTransform: "capitalize" }}>{note.title}</h2>
-            <p>{note.content}</p>
-          </div>
-        ))}
+    <div>
+      <div className="header">
+        <h2>App Name</h2>
+        <button
+          style={{
+            backgroundColor: "#af4c4c",
+            border: "none",
+            paddingRight: 10,
+            paddingLeft: 10,
+            color: "#fff",
+          }}
+          onClick={() => {
+            dispatch(logout());
+          }}
+        >
+          Logout
+        </button>
       </div>
+      <div className="app-container">
+        <form
+          onSubmit={(event) =>
+            selectedNote ? handleUpdateNote(event) : handleAddNote(event)
+          }
+          className="note-form"
+        >
+          <input
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            placeholder="Title"
+            required
+          />
+          <textarea
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
+            placeholder="Content"
+            rows={10}
+            required
+          />
+          {selectedNote ? (
+            <div className="edit-buttons">
+              <button type="submit">Save</button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
+          ) : (
+            <button style={{ marginBottom: 30 }} type="submit">
+              Add Note
+            </button>
+          )}
+        </form>
+
+        <div className="notes-grid">
+          {notes.map((note) => (
+            <div
+              key={note._id}
+              onClick={() => selected(note)}
+              className="note-item"
+            >
+              <div className="notes-header">
+                <button onClick={(event) => deleteNote(event, note._id)}>
+                  x
+                </button>
+              </div>
+              <h2 style={{ textTransform: "capitalize" }}>{note.title}</h2>
+              <p>{note.content}</p>
+            </div>
+          ))}
+        </div>
+      </div>{" "}
     </div>
   );
 };

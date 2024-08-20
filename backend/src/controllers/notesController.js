@@ -3,16 +3,18 @@ const noteSchema = require("../models/notes");
 
 class NotesController {
   static getNotes = async (req, res) => {
-    const { userID } = req.body;
+    const  userID  = req.params.id;
     try {
+      console.log(userID);
       const getUser = await userSchema.findById(userID);
+      console.log(getUser);
       if (!getUser) {
-        res.send({ success: false, message: "User not found!" });
+        return res.send({ success: false, message: "User not found!" });
       }
       const getNotes = await noteSchema.find({ userID: userID });
-      res.send({ success: true, data: getNotes });
+       return res.send({ success: true, data: getNotes });
     } catch (error) {
-      res.send({ success: false, message: "Something went wrong!" });
+     return res.send({ success: false, message: "Something went wrong!" });
     }
   };
 

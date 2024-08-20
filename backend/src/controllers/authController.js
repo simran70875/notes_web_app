@@ -16,10 +16,10 @@ class AuthController {
       }
 
       //NOTE - Check if user already exists
-      await ifUserExists({username:username});
-      await ifUserExists({email:email});
-      await ifUserExists({phone:phone});
-     
+     const user =  await userSchema.findOne({username:username}) || await userSchema.findOne({email:email}) ||  await userSchema.findOne({phone:phone});
+     if(user){
+      return res.status(400).send({ success: false, message: "User already exists" });
+     }
 
       //NOTE - encrypt password
       const encryptedPassword = await getBcryptedPassword(password);

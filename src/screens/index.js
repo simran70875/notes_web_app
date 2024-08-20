@@ -1,35 +1,46 @@
-import React, { useState } from "react";
-import '../App.css';
+import React, { useEffect, useState } from "react";
+import "../App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addNote, fetchNotes } from "./store/reducers/noteSlice";
+import { postWithoutToken } from "./services/post";
+import { paths } from "./config/paths";
+import { putWithoutToken } from "./services/put";
+import { deleteWithoutToken } from "./services/delete";
 
 const Main = () => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedNote, setSelectedNote] = useState(null);
-  const [notes, setnotes] = useState([
-    {
-      id: 1,
-      title: "react",
-      content: "react is used to create single web application.",
-    },
-    {
-      id: 2,
-      title: "react native",
-      content: "react is used to create single web application.",
-    },
-  ]);
+  const userID = useSelector((state) => state.auth.userid);
+  const notes = useSelector((state) => state.getNotes.notes);
+  const status = useSelector((state) => state.getNotes.status);
+  const error = useSelector((state) => state.getNotes.error);
 
-  const handleAddNote = (event) => {
+  useEffect(() => {
+    dispatch(fetchNotes());
+  }, [dispatch]);
+
+  const handleAddNote = async (event) => {
     event.preventDefault(); // to prevent the form from submitting and refreshing the page, which is its default behavior.
     const newNote = {
-      id: notes.length + 1,
+      userID: userID,
       title: title,
       content: content,
     };
-    setnotes([newNote, ...notes]);
-    console.log(newNote);
+    const res = await postWithoutToken(paths.addNote, newNote);
+    dispatch(fetchNotes());
     setTitle("");
     setContent("");
   };
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed") {
+    return <div>Error: {error}</div>;
+  }
 
   const selected = (note) => {
     setSelectedNote(note);
@@ -37,7 +48,7 @@ const Main = () => {
     setContent(note.content);
   };
 
-  const handleUpdateNote = (event) => {
+  const handleUpdateNote = async (event) => {
     event.preventDefault();
 
     if (!selectedNote) {
@@ -45,16 +56,16 @@ const Main = () => {
     }
 
     const updatedNote = {
-      id: selectedNote.id,
       title: title,
       content: content,
     };
-
-    const updatedNotesList = notes.map((note) =>
-      note.id === selectedNote.id ? updatedNote : note
+    const res = await putWithoutToken(
+      `${paths.updateNote}/${selectedNote._id}`,
+      updatedNote
     );
+    console.log(res);
+    dispatch(fetchNotes());
 
-    setnotes(updatedNotesList);
     setTitle("");
     setContent("");
     setSelectedNote(null);
@@ -66,10 +77,10 @@ const Main = () => {
     setContent("");
   };
 
-  const deleteNote = (event, noteId) => {
+  const deleteNote = async (event, noteId) => {
     event.stopPropagation();
-    const deleteN = notes.filter((note) => note.id !== noteId);
-    setnotes(deleteN);
+    await deleteWithoutToken(`${paths.deleteNote}/${noteId}`);
+    dispatch(fetchNotes());
   };
 
   return (
@@ -106,12 +117,14 @@ const Main = () => {
       <div className="notes-grid">
         {notes.map((note) => (
           <div
-            key={note.id}
+            key={note._id}
             onClick={() => selected(note)}
             className="note-item"
           >
             <div className="notes-header">
-              <button onClick={(event) => deleteNote(event, note.id)}>x</button>
+              <button onClick={(event) => deleteNote(event, note._id)}>
+                x
+              </button>
             </div>
             <h2 style={{ textTransform: "capitalize" }}>{note.title}</h2>
             <p>{note.content}</p>

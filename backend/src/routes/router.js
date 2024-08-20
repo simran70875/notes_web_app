@@ -8,7 +8,7 @@ router.get("/", AuthController.welcome_msz);
 router.post("/register", AuthController.register);
 router.post("/login", AuthController.loginUser);
 router.post("/addNote", NotesController.addNote);
-router.get("/getNotes", NotesController.getNotes);
+router.get("/getNotes/:id", NotesController.getNotes);
 router.delete("/deleteNote/:id", NotesController.deleteNote);
 router.put("/editNote/:id", NotesController.editNote);
 

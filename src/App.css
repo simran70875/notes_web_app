@@ -92,3 +92,10 @@ input {
   background-color: rgb(220, 89, 89);
   color: white;
 }
+.header{
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+  background-color: aliceblue;
+  justify-content: space-between;
+}

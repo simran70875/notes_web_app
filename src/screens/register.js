@@ -61,7 +61,7 @@ const Register = () => {
           padding: "40px",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-          width: "500px",
+        
         }}
       >
         <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Register</h2>
@@ -197,7 +197,7 @@ const Register = () => {
         <p style={{ textAlign: "center", fontSize: "14px" }}>
           Already have an account?{" "}
           <a
-            href="/"
+            href="/login"
             style={{
               color: "#4CAF50",
               textDecoration: "none",

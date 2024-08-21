@@ -30,7 +30,7 @@ const Login = () => {
       setMsz(response.message);
       console.log(response.data._id);
       dispatch(loginSuccess({ userid: response.data._id }));
-      navigate("/index");
+      navigate("/");
     } else {
       setError(response.message);
     }

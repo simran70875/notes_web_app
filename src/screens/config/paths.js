@@ -1,5 +1,5 @@
 // const baseUrl = "http://localhost:8000";
-const baseUrl = "https://notes-web-app-puce.vercel.app";
+const baseUrl = "https://notes-web-app-puce.vercel.app/backend";
 
 export const paths = {
   // auth

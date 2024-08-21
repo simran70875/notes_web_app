@@ -29,7 +29,7 @@ const Login = () => {
     if (response.success) {
       setMsz(response.message);
       console.log(response.data._id);
-      dispatch(loginSuccess({ userid: response.data._id }));
+      dispatch(loginSuccess({ userid: response.data._id, username: response.data.username }));
       navigate("/");
     } else {
       setError(response.message);

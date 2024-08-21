@@ -15,6 +15,7 @@ const Main = () => {
   const [content, setContent] = useState("");
   const [selectedNote, setSelectedNote] = useState(null);
   const userID = useSelector((state) => state.auth.userid);
+  const username = useSelector((state) => state.auth.username);
   const notes = useSelector((state) => state.getNotes.notes);
   const status = useSelector((state) => state.getNotes.status);
   const error = useSelector((state) => state.getNotes.error);
@@ -88,7 +89,7 @@ const Main = () => {
   return (
     <div>
       <div className="header">
-        <h2>App Name</h2>
+        <h2>Welcome {username} :)</h2>
         <button
           style={{
             backgroundColor: "#af4c4c",

@@ -89,7 +89,7 @@ const Main = () => {
   return (
     <div>
       <div className="header">
-        <h2>Welcome {username} :)</h2>
+        <h2 style={{textTransform:'capitalize'}}>Welcome {username} :)</h2>
         <button
           style={{
             backgroundColor: "#af4c4c",

@@ -20,10 +20,10 @@ const Login = () => {
       password,
     };
     if (!phone || !password) {
-      setError("phone & password are required fields!");
+      setError("Phone & password are required fields!");
       return;
     }
-
+ 
     const response = await postWithoutToken(paths.login, data);
     console.log(response);
     if (response.success) {

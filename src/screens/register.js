@@ -25,8 +25,27 @@ const Register = () => {
       password,
       confirmPassword,
     };
-    if(!username || !phone || !email || !address || !password || !confirmPassword) {
-      setError("Please fill all the fields!");
+    if (!username) {
+      setError("Username is Required!");
+      return;
+    }
+    if (!phone) {
+      setError("Phone Number is Required!");
+      return;
+    }
+    if (!password || !confirmPassword) {
+      setError("Password is Required!");
+      return;
+    }
+    var phoneexp = /^[0-9]{8,16}$/;
+    if (phoneexp.test(phone) === false) {
+      setError("Please enter a valid phone number");
+      return;
+    }
+
+    var emailexp = /^[A-Za-z0-9_\-.]+@[A-Za-z0-9_\-.]+\.[A-Za-z]{2,4}$/;
+    if (emailexp.test(email) === false) {
+      setError("Please enter a valid email address.");
       return;
     }
 
@@ -36,13 +55,12 @@ const Register = () => {
     }
     const response = await postWithoutToken(paths.register, data);
     console.log(response);
-    if(response.success){
+    if (response.success) {
       setMsz(response.message);
-      navigate('/login');
-    }else{
+      navigate("/login");
+    } else {
       setError(response.message);
     }
-    
   };
 
   return (
@@ -62,7 +80,6 @@ const Register = () => {
           padding: "40px",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-        
         }}
       >
         <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Register</h2>
@@ -107,7 +124,7 @@ const Register = () => {
             <label style={{ marginBottom: "8px" }}>
               Email:
               <input
-                type="text"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{

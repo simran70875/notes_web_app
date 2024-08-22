@@ -17,14 +17,7 @@ const Register = () => {
   const handleRegister = async (event) => {
     event.preventDefault();
     // Add registration logic here
-    const data = {
-      username,
-      phone,
-      email,
-      address,
-      password,
-      confirmPassword,
-    };
+    const data = {username, phone, email, address,  password, confirmPassword};
     if (!username) {
       setError("Username is Required!");
       return;
@@ -33,6 +26,7 @@ const Register = () => {
       setError("Phone Number is Required!");
       return;
     }
+
     if (!password || !confirmPassword) {
       setError("Password is Required!");
       return;
@@ -49,10 +43,16 @@ const Register = () => {
       return;
     }
 
+    var pwdExp =!/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/.test(password);
+    if (pwdExp === false) {
+      setError("Password must contain at least 8 characters, one number and one special character");
+      return;
+    }
     if (password !== confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
+
     const response = await postWithoutToken(paths.register, data);
     console.log(response);
     if (response.success) {
@@ -96,7 +96,8 @@ const Register = () => {
                 onChange={(e) => {
                   setMsz("");
                   setError("");
-                  setUsername(e.target.value)}}
+                  setUsername(e.target.value);
+                }}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -115,7 +116,8 @@ const Register = () => {
                 onChange={(e) => {
                   setMsz("");
                   setError("");
-                  setPhone(e.target.value)}}
+                  setPhone(e.target.value);
+                }}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -135,7 +137,8 @@ const Register = () => {
                 onChange={(e) => {
                   setMsz("");
                   setError("");
-                  setEmail(e.target.value)}}
+                  setEmail(e.target.value);
+                }}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -154,7 +157,8 @@ const Register = () => {
                 onChange={(e) => {
                   setMsz("");
                   setError("");
-                  setAddress(e.target.value)}}
+                  setAddress(e.target.value);
+                }}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -174,7 +178,8 @@ const Register = () => {
                 onChange={(e) => {
                   setMsz("");
                   setError("");
-                  setPassword(e.target.value)}}
+                  setPassword(e.target.value);
+                }}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -193,7 +198,8 @@ const Register = () => {
                 onChange={(e) => {
                   setMsz("");
                   setError("");
-                  setConfirmPassword(e.target.value)}}
+                  setConfirmPassword(e.target.value);
+                }}
                 style={{
                   width: "100%",
                   padding: "8px",

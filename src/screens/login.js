@@ -7,8 +7,8 @@ import { loginSuccess } from "./store/reducers/authReducer";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [phone, setphone] = useState();
-  const [password, setPassword] = useState("rahul@123#");
+  const [phone, setphone] = useState(7087596569);
+  const [password, setPassword] = useState("simran");
   const [msz, setMsz] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();

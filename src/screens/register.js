@@ -93,7 +93,10 @@ const Register = () => {
               <input
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  setMsz("");
+                  setError("");
+                  setUsername(e.target.value)}}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -109,7 +112,10 @@ const Register = () => {
               <input
                 type="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  setMsz("");
+                  setError("");
+                  setPhone(e.target.value)}}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -126,7 +132,10 @@ const Register = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setMsz("");
+                  setError("");
+                  setEmail(e.target.value)}}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -142,7 +151,10 @@ const Register = () => {
               <input
                 type="text"
                 value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => {
+                  setMsz("");
+                  setError("");
+                  setAddress(e.target.value)}}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -159,7 +171,10 @@ const Register = () => {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setMsz("");
+                  setError("");
+                  setPassword(e.target.value)}}
                 style={{
                   width: "100%",
                   padding: "8px",
@@ -175,7 +190,10 @@ const Register = () => {
               <input
                 type="password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                  setMsz("");
+                  setError("");
+                  setConfirmPassword(e.target.value)}}
                 style={{
                   width: "100%",
                   padding: "8px",

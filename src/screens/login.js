@@ -7,7 +7,7 @@ import { loginSuccess } from "./store/reducers/authReducer";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("rahul21");
+  const [phone, setphone] = useState();
   const [password, setPassword] = useState("rahul@123#");
   const [msz, setMsz] = useState("");
   const [error, setError] = useState("");
@@ -16,11 +16,11 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     const data = {
-      username,
+      phone,
       password,
     };
-    if (!username || !password) {
-      setError("Username & password are required fields!");
+    if (!phone || !password) {
+      setError("phone & password are required fields!");
       return;
     }
 
@@ -62,11 +62,11 @@ const Login = () => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           <label style={{ marginBottom: "8px" }}>
-            Username:
+            phone:
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={phone}
+              onChange={(e) => setphone(e.target.value)}
               style={{
                 width: "100%",
                 padding: "8px",

@@ -38,6 +38,7 @@ const Register = () => {
     console.log(response);
     if(response.success){
       setMsz(response.message);
+      navigate('/login');
     }else{
       setError(response.message);
     }

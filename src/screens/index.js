@@ -31,7 +31,7 @@ const Main = () => {
       title: title,
       content: content,
     };
-    const res = await postWithoutToken(paths.addNote, newNote);
+    await postWithoutToken(paths.addNote, newNote);
     dispatch(fetchNotes());
     setTitle("");
     setContent("");

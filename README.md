@@ -7,7 +7,7 @@ The **Web Notes App** is a full-stack web application designed to help users man
 
 ## Demo
 
-Go to "[text](https://notes-web-app-puce.vercel.app/login)"
+Go to "[Demo Website](https://notes-web-app-puce.vercel.app/login)"
 
 ## Purpose
 

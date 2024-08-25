@@ -5,6 +5,10 @@
 
 The **Web Notes App** is a full-stack web application designed to help users manage their notes and tasks efficiently. Users can register, log in, create, update, and delete notes or tasks. The app provides a simple and intuitive interface to keep track of daily tasks, ideas, or important information.
 
+## Demo
+
+Go to "[text](https://notes-web-app-puce.vercel.app/login)"
+
 ## Purpose
 
 The purpose of this project is to create a user-friendly notes application that allows users to manage their tasks and notes in one place. The app is built with modern web technologies, ensuring a seamless user experience while offering robust backend support for data management and storage.
@@ -66,12 +70,6 @@ The purpose of this project is to create a user-friendly notes application that 
         ```
 
 5. **Access the application**:
-    - Open your web browser and go to `https://notes-web-app-puce.vercel.app/login` to view the app.
+    - Open your web browser and go to `https://localhost:3000` to view the app.
 
-## Contributing
 
-Contributions are welcome! Please fork this repository and submit a pull request for any enhancements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
